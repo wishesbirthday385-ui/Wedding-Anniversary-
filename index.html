@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="petalField"></canvas>
+
+  <button id="soundToggle" class="icon-btn" aria-label="Toggle music">🔈</button>
+  <audio id="bgMusic" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="stage">
+
+    <div class="bloom-wrap">
+      <svg id="bloom" viewBox="0 0 200 200" width="150" height="150">
+        <g id="petals"></g>
+        <circle cx="100" cy="100" r="14" fill="#f6ece1"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow">Happy Anniversary</p>
+    <h1 class="headline">Two Hearts,<br><em>One Story</em></h1>
+    <p class="subtitle">Still writing the most beautiful chapter, together.</p>
+
+    <button id="letterBtn" class="letter-btn">
+      <span>Open the Letter</span> 💌
+    </button>
+
+  </main>
+
+  <div id="letterModal" class="modal-overlay">
+    <div class="scene" id="scene">
+      <div class="envelope" id="envelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-flap"></div>
+        <div class="seal">✦</div>
+      </div>
+
+      <div class="letter-card" id="letterCard">
+        <p class="letter-text">
+          Some love stories don't need grand words —<br>
+          just quiet mornings, shared laughter,<br>
+          and a hand that's always been there to hold.
+        </p>
+        <p class="letter-text">
+          May your love keep blooming,<br>
+          softer and deeper with every passing year.
+        </p>
+        <p class="letter-signature">Happy Anniversary 🌸</p>
+        <button id="closeModal" class="close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="petalBurstWrap"><canvas id="petalBurst"></canvas></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

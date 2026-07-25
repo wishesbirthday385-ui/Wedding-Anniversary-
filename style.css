@@ -1,0 +1,304 @@
+:root{
+  --bg-deep:#170a0d;
+  --bg-mid:#2b1116;
+  --gold:#cda86a;
+  --gold-soft:rgba(205,168,106,0.5);
+  --blush:#e7b8bd;
+  --rose-deep:#8c3a49;
+  --cream:#f6ece1;
+  --cream-dim:rgba(246,236,225,0.72);
+  --glass:rgba(246,236,225,0.06);
+  --glass-border:rgba(246,236,225,0.16);
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  margin:0;
+  height:100%;
+  width:100%;
+  overflow-x:hidden;
+  background:var(--bg-deep);
+  font-family:'Montserrat',sans-serif;
+  color:var(--cream);
+}
+
+#petalField{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+.icon-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:20;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid var(--glass-border);
+  background:var(--glass);
+  backdrop-filter:blur(6px);
+  color:var(--cream);
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform 0.2s ease, background 0.2s ease;
+}
+.icon-btn:hover{background:rgba(246,236,225,0.12); transform:scale(1.05);}
+
+.stage{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:32px 20px;
+}
+
+.bloom-wrap{
+  margin-bottom:6px;
+  opacity:0;
+  animation:fadeIn 1.4s ease 0.2s forwards;
+}
+
+#petals path{
+  transform-origin:100px 100px;
+  animation:unfold 1.8s cubic-bezier(.2,.8,.3,1) forwards;
+  opacity:0;
+}
+
+@keyframes unfold{
+  0%{ transform:scale(0.15) rotate(var(--startRot,0deg)); opacity:0; }
+  60%{ opacity:1; }
+  100%{ transform:scale(1) rotate(var(--endRot,0deg)); opacity:1; }
+}
+
+@keyframes fadeIn{ to{ opacity:1; } }
+
+.eyebrow{
+  font-family:'Montserrat',sans-serif;
+  font-size:0.72rem;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:0 0 6px;
+  opacity:0;
+  animation:riseIn 1s ease 1.2s forwards;
+}
+
+.headline{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:clamp(2.6rem, 8vw, 4.6rem);
+  line-height:1.08;
+  margin:0 0 18px;
+  color:var(--cream);
+  opacity:0;
+  animation:riseIn 1.1s ease 1.5s forwards;
+}
+.headline em{
+  font-style:italic;
+  color:var(--blush);
+}
+
+.subtitle{
+  font-weight:300;
+  font-size:clamp(1rem, 2.4vw, 1.2rem);
+  color:var(--cream-dim);
+  max-width:440px;
+  margin:0 0 42px;
+  opacity:0;
+  animation:riseIn 1.1s ease 1.9s forwards;
+}
+
+@keyframes riseIn{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.letter-btn{
+  font-family:'Montserrat',sans-serif;
+  font-weight:500;
+  font-size:0.95rem;
+  letter-spacing:0.4px;
+  color:var(--cream);
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+  padding:15px 32px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  box-shadow:0 8px 26px rgba(0,0,0,0.35);
+  opacity:0;
+  animation:riseIn 1.1s ease 2.3s forwards;
+}
+.letter-btn:hover{
+  transform:translateY(-3px);
+  background:rgba(246,236,225,0.12);
+  box-shadow:0 12px 32px rgba(205,168,106,0.25);
+}
+
+/* ---------- Envelope Modal ---------- */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(23,10,13,0.86);
+  backdrop-filter:blur(4px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.4s ease;
+}
+.modal-overlay.open{ opacity:1; pointer-events:auto; }
+
+.scene{
+  position:relative;
+  width:min(340px, 86vw);
+  display:grid;
+  justify-content:center;
+}
+.scene > *{
+  grid-row:1;
+  grid-column:1;
+  align-self:center;
+  justify-self:center;
+}
+
+.envelope{
+  position:relative;
+  width:100%;
+  height:220px;
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+.envelope.hide{
+  opacity:0;
+  transform:scale(0.85);
+  pointer-events:none;
+}
+
+.envelope-back{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(160deg,#3a1620,#2b1116);
+  border:1px solid var(--glass-border);
+  border-radius:10px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+.envelope-flap{
+  position:absolute;
+  top:0; left:0; right:0;
+  height:0;
+  border-left:170px solid transparent;
+  border-right:170px solid transparent;
+  border-top:110px solid #3f1a24;
+  transform-origin:top;
+  transition:transform 0.8s cubic-bezier(.4,.2,.2,1);
+  z-index:3;
+}
+.envelope.open .envelope-flap{ transform:rotateX(180deg); }
+
+.seal{
+  position:absolute;
+  top:96px;
+  left:50%;
+  transform:translateX(-50%);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #d68a95, var(--rose-deep));
+  color:var(--cream);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1rem;
+  z-index:4;
+  box-shadow:0 4px 10px rgba(0,0,0,0.4);
+  transition:opacity 0.3s ease, transform 0.3s ease;
+}
+.envelope.open .seal{ opacity:0; transform:translateX(-50%) scale(0.4); }
+
+.letter-card{
+  width:100%;
+  max-height:70vh;
+  overflow-y:auto;
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(16px);
+  border-radius:14px;
+  padding:26px 22px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(16px) scale(0.97);
+  pointer-events:none;
+  transition:opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+}
+.letter-card.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+.letter-text{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.08rem;
+  line-height:1.7;
+  color:var(--cream);
+  margin:0 0 14px;
+}
+
+.letter-signature{
+  font-family:'Montserrat',sans-serif;
+  font-weight:400;
+  font-size:0.85rem;
+  color:var(--blush);
+  letter-spacing:0.4px;
+  margin:16px 0 20px;
+}
+
+.close-btn{
+  font-family:'Montserrat',sans-serif;
+  font-size:0.8rem;
+  color:var(--cream-dim);
+  background:transparent;
+  border:1px solid var(--glass-border);
+  border-radius:999px;
+  padding:9px 22px;
+  cursor:pointer;
+  transition:background 0.2s ease;
+}
+.close-btn:hover{ background:rgba(246,236,225,0.08); }
+
+/* ---------- Petal burst canvas ---------- */
+#petalBurstWrap{
+  position:fixed;
+  inset:0;
+  z-index:60;
+  pointer-events:none;
+}
+#petalBurst{ width:100%; height:100%; display:block; }
+
+@media (prefers-reduced-motion: reduce){
+  .bloom-wrap, #petals path, .eyebrow, .headline, .subtitle, .letter-btn{ animation:none; opacity:1; }
+}
+
+@media (max-width:480px){
+  .envelope{ height:200px; }
+  .envelope-flap{ border-left:150px solid transparent; border-right:150px solid transparent; border-top:96px solid #3f1a24; }
+  .seal{ top:82px; }
+}
